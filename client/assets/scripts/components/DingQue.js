@@ -5,7 +5,7 @@ cc.Class({
         queYiMen:null,
         tips:[],
         selected:[],
-        dingques:[],
+        dingques:[],  //定缺
         // foo: {
         //    default: null,
         //    url: cc.Texture2D,  // optional, default is typeof default
@@ -28,20 +28,20 @@ cc.Class({
     },
     
     initView:function(){
-        var gameChild = this.node.getChildByName("game");
-        this.queYiMen = gameChild.getChildByName("dingque");
-        this.queYiMen.active = cc.vv.gameNetMgr.isDingQueing;
+        var gameChild = this.node.getChildByName("game");  //通过MJGame脚本addCommpent("dingque") ,将所有脚本绑定到game节点上，在调用获取game的子节点方式获取所需节点。
+        this.queYiMen = gameChild.getChildByName("dingque");  //获取定缺组件
+        this.queYiMen.active = cc.vv.gameNetMgr.isDingQueing; //通过服务器反馈，确定定缺的active(true或false)。
         
-        var arr = ["myself","right","up","left"];
-        for(var i = 0; i < arr.length; ++i){
-            var side = gameChild.getChildByName(arr[i]);
-            var seat = side.getChildByName("seat");
-            var dingque = seat.getChildByName("que");
-            this.dingques.push(dingque);
+        var arr = ["myself","right","up","left"]; //使用数组创建座位位置
+        for(var i = 0; i < arr.length; ++i){  //遍历位置
+            var side = gameChild.getChildByName(arr[i]); //获取四个位置的节点
+            var seat = side.getChildByName("seat");      //获取四个节点座位的位置
+            var dingque = seat.getChildByName("que");    //获取每个人的定缺
+            this.dingques.push(dingque);   //显示每个人的定缺
         }
-        this.reset();
+        this.reset();   
         
-        var tips = this.queYiMen.getChildByName("tips");
+        var tips = this.queYiMen.getChildByName("tips"); //获取定缺状态
         for(var i = 0; i < tips.childrenCount; ++i){
             var n = tips.children[i];
             this.tips.push(n.getComponent(cc.Label));
@@ -135,7 +135,7 @@ cc.Class({
         }
     },
     
-    reset:function(){
+    reset:function(){  //重置函数
         this.setInteractable(true);
         
         this.selected.push(this.queYiMen.getChildByName("tong_selected"));

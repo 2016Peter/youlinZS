@@ -13,7 +13,7 @@ cc.Class({
         // ...
         _leixingxuanze: null, //类型选择
         _gamelist: null,    //游戏目录
-        _currentGame: null,   //通用规则 默认规则
+        _currentGame: null,   //目前游戏
     },
 
     // use this for initialization
@@ -63,7 +63,7 @@ cc.Class({
         return 'xzdd';  //默认选项
     },
 
-    getSelectedOfRadioGroup(groupRoot) {
+    getSelectedOfRadioGroup(groupRoot) { //与选房类似操作，对选择进行判断
         console.log(groupRoot);
         var t = this._currentGame.getChildByName(groupRoot);
 

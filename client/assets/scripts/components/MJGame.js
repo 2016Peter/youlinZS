@@ -5,15 +5,15 @@ cc.Class({
         gameRoot:{
             default:null,
             type:cc.Node
-        },
+        },   //游戏主节点
         
         prepareRoot:{
             default:null,
             type:cc.Node   
-        },
+        },   //游戏准备节点
         
-        _myMJArr:[],
-        _options:null,
+        _myMJArr:[],   // 我的麻将数组
+        _options:null,    //设置
         _selectedMJ:null,
         _chupaiSprite:[],
         _mjcount:null,
