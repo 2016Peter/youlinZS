@@ -25,7 +25,7 @@ cc.Class({
         this._info = cc.find("Canvas/tip_notice/info").getComponent(cc.Label);
         
         var self = this;
-        this.node.on('push_notice',function(data){
+        this.node.on('push_notice',function(data){//添加事件监听，this.node.on('服务端发回的消息',回调函数)
             var data = data.detail;
             self._guohu.active = true;
             self._guohuTime = data.time;
@@ -34,7 +34,7 @@ cc.Class({
     },
 
     // called every frame, uncomment this function to activate update callback
-    update: function (dt) {
+    update: function (dt) {//过胡时间判断
        if(this._guohuTime > 0){
            this._guohuTime -= dt;
            if(this._guohuTime < 0){

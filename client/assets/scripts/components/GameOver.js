@@ -11,13 +11,13 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
-        _gameover:null,
-        _gameresult:null,
-        _seats:[],
-        _isGameEnd:false,
-        _pingju:null,
-        _win:null,
-        _lose:null,
+        _gameover:null,  //游戏结束
+        _gameresult:null,  //游戏结果
+        _seats:[],          //座位信息数组
+        _isGameEnd:false,  //游戏是否结束
+        _pingju:null,    //平局
+        _win:null,     //胜利
+        _lose:null,      //失败
     },
 
     // use this for initialization
@@ -28,14 +28,14 @@ cc.Class({
         if(cc.vv.gameNetMgr.conf == null){
             return;
         }
-        if(cc.vv.gameNetMgr.conf.type == "xzdd"){
+        if(cc.vv.gameNetMgr.conf.type == "xzdd"){//如果conf的类型为血战到底，则当游戏结束是调用血战到底界面，否则启动血流成河界面
             this._gameover = this.node.getChildByName("game_over");
         }
         else{
-            this._gameover = this.node.getChildByName("game_over_xlch");
+            this._gameover = this.node.getChildByName("game_over_xlch");//血流成河结束界面
         }
         
-        this._gameover.active = false;
+        this._gameover.active = false;    
         
         this._pingju = this._gameover.getChildByName("pingju");
         this._win = this._gameover.getChildByName("win");

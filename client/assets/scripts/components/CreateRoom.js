@@ -19,48 +19,48 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
 
-        this._gamelist = this.node.getChildByName('game_list');
+        this._gamelist = this.node.getChildByName('game_list');//将房间规则和游戏类型选择组件赋值给_gamelist
 
-        this._leixingxuanze = [];
-        var t = this.node.getChildByName("leixingxuanze");
-        for (var i = 0; i < t.childrenCount; ++i) {
+        this._leixingxuanze = [];//新建一个类型选择数组，用来存储选定的游戏类型，类型有两种"血战到底"和"血流成河"
+        var t = this.node.getChildByName("leixingxuanze");// 获取类型选择组件
+        for (var i = 0; i < t.childrenCount; ++i) { //node.childrenCount   该节点下子节点的数目
             var n = t.children[i].getComponent("RadioButton");
-            if (n != null) {
+            if (n != null) { //如果用户对游戏类型进行选择的话，则向_leixingxuanze数组中添加该选择模式的RadioButton节点
                 this._leixingxuanze.push(n);
             }
         }
     },
 
     onBtnBack: function () {
-        this.node.active = false;
+        this.node.active = false;  //取消按钮被点击时，关闭创建房间界面
     },
 
     onBtnOK: function () {
-        var usedTypes = ['xzdd', 'xlch'];
-        var type = this.getType();
-        if (usedTypes.indexOf(type) == -1) {
+        var usedTypes = ['xzdd', 'xlch'];  //定义数组，存储两种类型玩法  血战到底 血流成河
+        var type = this.getType();  //定义类型变量，用于返回值的接收
+        if (usedTypes.indexOf(type) == -1) {  //如果在usedTypes的数组中没有出现type返回的类型等于-1，直接返回；
             return;
         }
 
-        this.node.active = false;
-        this.createRoom();
+        this.node.active = false; //如果房间类型没被选定，则不执行这一步,反之执行
+        this.createRoom(); //如果房间类型没被选定，则不执行这一步,反之执行，调用创房指令
     },
 
-    getType: function () {
-        var type = 0;
+    getType: function () { //获取房间类型
+        var type = 0;  //设置房间玩法的默认选项为血战到底玩法
         for (var i = 0; i < this._leixingxuanze.length; ++i) {
-            if (this._leixingxuanze[i].checked) {
+            if (this._leixingxuanze[i].checked) {  //this.node.checked  当节点被选中时，设置type为选中的参数
                 type = i;
                 break;
             }
         }
-        if (type == 0) {
+        if (type == 0) { //根据type值返回相关玩法类型
             return 'xzdd';
         }
         else if (type == 1) {
             return 'xlch';
         }
-        return 'xzdd';
+        return 'xzdd';  //默认选项
     },
 
     getSelectedOfRadioGroup(groupRoot) {
@@ -122,7 +122,7 @@ cc.Class({
         cc.vv.http.sendRequest("/create_private_room", data, onCreate);
     },
 
-    constructSCMJConf: function () {
+    constructSCMJConf: function () {   //自定义规则选择
 
         var wanfaxuanze = this._currentGame.getChildByName('wanfaxuanze');
         var huansanzhang = wanfaxuanze.children[0].getComponent('CheckBox').checked;
